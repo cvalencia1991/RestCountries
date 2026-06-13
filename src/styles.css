@@ -1,1 +1,61 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --white: #fff;
+  --black: #000;
+  --grey-950: #111517;
+  --grey-400: #808080;
+  --grey-350: #979797;
+  --grey-300: #b2b2b2;
+  --grey-250: #c4c4c4;
+  --grey-50: #fcfcfc;
+  --blue-950: #202c36;
+  --blue-900: #2b3844;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('/assets/fonts/Nunito/Nunito-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 300 800;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  transition: background-color 0.3s ease;
+  background-color: var(--grey-50);
+  color: var(--black);
+}
+
+body.dark-theme {
+  background-color: var(--blue-950);
+  color: var(--white);
+}
+
+app-root {
+  display: block;
+  min-height: 100dvh;
+  background-color: inherit;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+}
