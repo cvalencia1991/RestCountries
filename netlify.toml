@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "dist/RestCountry/browser"
+
+[[plugins]]
+  package = "@netlify/plugin-angular"
+
+[build.environment]
+  NODE_VERSION = "20"
