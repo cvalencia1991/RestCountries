@@ -1,0 +1,13 @@
+<div>
+  <span class="icon-search"></span>
+  <label for="search">
+    <input
+      type="text"
+      id="search"
+      name="search"
+      placeholder="Search for a country..."
+      [value]="value()"
+      (input)="onSearch($event)"
+    />
+  </label>
+</div>
