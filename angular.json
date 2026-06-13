@@ -16,6 +16,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "dist/RestCountry",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -78,6 +79,14 @@
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        },
+        "deploy": {
+          "builder": "@netlify-builder/deploy:deploy",
+          "options": {
+            "outputPath": "dist/RestCountry",
+            "netlifyToken": "nfp_33JCxDjRsQiNWtz5UpHpU7xZSe3i5s2Waba9",
+            "siteId": ""
+          }
         }
       }
     }
