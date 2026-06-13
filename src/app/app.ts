@@ -1,12 +1,13 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
+import { RouterOutlet, Router, NavigationStart } from '@angular/router';
+import { MenuBar } from './components/menu-bar/menu-bar';
+import { Copyright } from './copyright';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, MenuBar, Copyright],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('RestCountry');
-}
+export class App {}
