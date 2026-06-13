@@ -1,0 +1,9 @@
+<div class="card">
+  <img [src]="flagUrl()" [alt]="countryName()" [style]="'flag-' + country().uuid" />
+  <div class="card-body">
+    <h2>{{ countryName() }}</h2>
+    <p><b>Population: </b> {{ country().population | number }}</p>
+    <p><b>Region: </b> {{ country().region }}</p>
+    <p><b>Capital: </b> {{ capitalName() }}</p>
+  </div>
+</div>
