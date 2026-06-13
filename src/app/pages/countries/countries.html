@@ -1,0 +1,18 @@
+<form class="search-options">
+  <app-search-bar [value]="searchTerm()" (searchChanged)="handleSearch($event)" />
+  <app-drop-down-options [selected]="selectedRegion()" (regionChanged)="handleRegion($event)" />
+</form>
+
+@if (isLoading()) {
+  <app-loader />
+} @else {
+  <section class="countries">
+    @for (country of filteredCountries(); track country.uuid) {
+      <app-card 
+      [country]="country" 
+      [routerLink]="['/', country.names.common]" 
+      />
+    }
+  </section>
+}
+

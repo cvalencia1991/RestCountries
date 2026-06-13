@@ -1,0 +1,50 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.search-options {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.countries {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 72px;
+  row-gap: 72px;
+  margin-top: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .search-options {
+    flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .countries {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 40px;
+    row-gap: 40px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .countries {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 32px;
+    row-gap: 32px;
+    justify-content: stretch;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .countries {
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+  }
+}

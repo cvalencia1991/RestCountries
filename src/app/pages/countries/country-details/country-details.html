@@ -1,0 +1,46 @@
+<div class="container">
+  <app-button title="Back" routerLink="/">
+    <span icon class="back-icon">←</span>
+  </app-button>
+
+  @if (country$ | async; as country) {
+    <div class="details-content">
+      <div class="flag-container">
+        <img [src]="country.flag.url_svg" [alt]="country.names.common" [style.view-transition-name]="'flag-' + country.uuid" />
+      </div>
+
+      <div class="info-container">
+        <h1>{{ country.names.common }}</h1>
+
+        <div class="stats-grid">
+          <div class="stats-col">
+            <p><b>Native Name:</b> {{ country.nativeName }}</p>
+            <p><b>Population:</b> {{ country.population | number }}</p>
+            <p><b>Region:</b> {{ country.region }}</p>
+            <p><b>Sub Region:</b> {{ country.displaySubRegion }}</p>
+            <p><b>Capital:</b> {{ country.capitals?.[0]?.name || 'N/A' }}</p>
+          </div>
+
+          <div class="stats-col">
+            <p><b>Top Level Domain:</b> {{ country.tld?.join(', ') || 'N/A' }}</p>
+            <p><b>Currencies:</b> {{ country.currenciesList }}</p>
+            <p><b>Languages:</b> {{ country.languagesList }}</p>
+          </div>
+        </div>
+
+        @if (country.borders && country.borders.length > 0) {
+          <div class="borders">
+            <b>Border Countries:</b>
+            <div class="border-tags">
+              @for (border of country.borders; track border) {
+                <span class="tag">{{ border }}</span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <app-loader />
+  }
+</div>
