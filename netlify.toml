@@ -1,14 +1,4 @@
-[build]
-  command = "node scripts/set-env.js && npm run build"
-  publish = "dist/RestCountry/browser"
-
-[[plugins]]
-  package = "@netlify/angular-runtime"
-
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-
-[build.environment]
-  NODE_VERSION = "20"
