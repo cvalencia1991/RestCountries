@@ -6,7 +6,7 @@
   @if (country$ | async; as country) {
     <div class="details-content">
       <div class="flag-container">
-        <img [src]="country.flag.url_svg" [alt]="country.names.common" [style.view-transition-name]="'flag-' + country.uuid" />
+        <img [src]="country.flag?.url_svg || country.flag?.url_png" [alt]="country.names.common" [style.view-transition-name]="'flag-' + country.uuid" />
       </div>
 
       <div class="info-container">

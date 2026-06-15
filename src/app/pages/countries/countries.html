@@ -5,6 +5,10 @@
 
 @if (isLoading()) {
   <app-loader />
+} @else if (errorMessage()) {
+  <div class="error-message">
+    {{ errorMessage() }}
+  </div>
 } @else {
   <section class="countries">
     @for (country of filteredCountries(); track country.uuid) {

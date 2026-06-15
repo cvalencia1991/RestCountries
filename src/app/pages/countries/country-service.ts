@@ -8,14 +8,13 @@ import { environment } from '../../../environments/environment';
 })
 export class CountryService {
   private http = inject(HttpClient);
-  private countriesUrl = 'https://api.restcountries.com/countries/v5';
 
   getCountries(region?: string, name?: string, limit: number = 250) {
-    let url = this.countriesUrl;
+    let url = environment.countryUrl;
     let params: any = { per_page: limit };
 
     if (name) {
-      url = `${this.countriesUrl}/name`;
+      url = `${environment.countryUrl}/name`;
       params.q = name;
     } else if (region) {
       params.region = region;
@@ -32,14 +31,14 @@ export class CountryService {
         timeout(3000),
         catchError((error) => {
           console.error('API Error:', error);
-          return throwError(() => new Error('something went wrong getting the countries'));
+          return throwError(() => error);
         }),
       );
   }
 
   getCountryByName(name: string) {
     return this.http
-      .get<any>(`${this.countriesUrl}/name`, {
+      .get<any>(`${environment.countryUrl}/name`, {
         params: { q: name },
         headers: {
           Authorization: `Bearer ${environment.token}`,

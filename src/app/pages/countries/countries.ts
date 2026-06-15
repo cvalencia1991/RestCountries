@@ -22,6 +22,7 @@ export class Countries implements OnInit {
 
   filteredCountries = signal<any[]>([]);
   isLoading = signal(true);
+  errorMessage = signal<string | null>(null);
 
   searchTerm = signal('');
   selectedRegion = signal('');
@@ -34,11 +35,19 @@ export class Countries implements OnInit {
           this.searchTerm.set(params['search'] || '');
           this.selectedRegion.set(params['region'] || '');
           this.isLoading.set(true);
+          this.errorMessage.set(null);
         }),
         switchMap((params) =>
-          this.countriesService.getCountries(params['region'], params['search'], 8).pipe(
+          this.countriesService.getCountries(params['region'], params['search'], 12).pipe(
             catchError((error) => {
-              console.error('API Error:', error);
+              let msg = 'Could not load countries. Please try again later.';
+              if (error.status === 401) {
+                msg = 'Unauthorized access (401). Please check your API token.';
+              } else if (error.message) {
+                msg = error.message;
+              }
+              this.errorMessage.set(msg);
+              this.isLoading.set(false);
               return of({ data: { objects: [] } });
             }),
           ),
@@ -46,7 +55,12 @@ export class Countries implements OnInit {
       )
       .subscribe({
         next: (response: any) => {
-          const countries = response.data.objects || [];
+          if (this.errorMessage()) {
+            return;
+          }
+          const countries = response.data.objects.filter(
+            (country: any) => country.flag?.url_svg || country.flag?.url_png,
+          );
           this.filteredCountries.set(countries.slice(0, 8));
           this.isLoading.set(false);
         },
