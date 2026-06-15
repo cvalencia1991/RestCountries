@@ -1,59 +1,100 @@
-# RestCountry
+# Frontend Mentor - REST Countries API with color theme switcher solution
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.6.
+This is a solution to the [REST Countries API with color theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca). 
 
-## Development server
+## Table of contents
 
-To start a local development server, run:
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Features](#features)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [Key Technical Features](#key-technical-features)
+  - [AI Collaboration](#ai-collaboration)
+- [Project Configuration](#project-configuration)
+  - [Environments](#environments)
+  - [Setup](#setup)
 
-```bash
-ng serve
+## Overview
+
+### The challenge
+
+Users should be able to:
+
+- See all countries from the API on the homepage
+- Search for a country using an `input` field
+- Filter countries by region
+- Click on a country to see more detailed information on a separate page
+- Click through to the border countries on the detail page
+- Toggle the color scheme between light and dark mode
+
+### Features
+
+- **Robust Error Handling:** Specific UI feedback for API errors (401 Unauthorized, 403 Forbidden, etc.).
+- **Responsive Design:** Optimized for mobile, tablet, and desktop views.
+- **Theme Switching:** Persistent light and dark mode.
+- **Dynamic Routing:** Individual pages for every country with detailed statistics.
+
+## My process
+
+### Built with
+
+- [Angular 18+](https://angular.dev/)
+- [TypeScript](https://www.typescript.org/)
+- [RxJS](https://rxjs.dev/) for reactive state and API handling
+- CSS Custom Properties (Variables)
+- CSS Grid & Flexbox
+
+### Key Technical Features
+
+#### Signals-based State Management
+Used Angular Signals for efficient, fine-grained reactivity in components like the country list and search filters.
+
+#### Advanced API Error Handling
+Implemented a centralized error handling strategy in the `CountryService` and UI feedback in components.
+```typescript
+catchError((error) => {
+  let msg = 'Could not load countries. Please try again later.';
+  if (error.status === 401) {
+    msg = 'Unauthorized access (401). Please check your API token.';
+  } else if (error.status === 403) {
+    msg = 'Forbidden (403). API limit reached or permission denied.';
+  }
+  this.errorMessage.set(msg);
+  this.isLoading.set(false);
+  return of({ data: { objects: [] } });
+})
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### AI Collaboration
 
-## Code scaffolding
+This project utilized **Gemini CLI** as a pair-programming partner to:
+- **Environment Debugging:** Analyzed `angular.json` to correctly configure development and production environments.
+- **UI Improvements:** Implemented the error messaging system in both the logic and the styling.
+- **Documentation:** Structured and updated this README to reflect the actual tech stack and features.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Project Configuration
 
-```bash
-ng generate component component-name
-```
+### Environments
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The project uses Angular's environment-specific file replacements:
+- **Development:** `src/environments/environment.development.ts` (Used by `ng serve`)
+- **Production:** `src/environments/environment.ts` (Used by `ng build`)
 
-```bash
-ng generate --help
-```
+### Setup
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. **Clone the repository**
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Configure API Token:**
+   Add your API token to the environment files in `src/environments/`.
+4. **Run local development server:**
+   ```bash
+   ng serve
+   ```
+5. **Build for production:**
+   ```bash
+   ng build
+   ```
