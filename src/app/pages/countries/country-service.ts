@@ -31,7 +31,7 @@ export class CountryService {
         timeout(3000),
         catchError((error) => {
           console.error('API Error:', error);
-          return throwError(() => new Error('something went wrong getting the countries'));
+          return throwError(() => error);
         }),
       );
   }
