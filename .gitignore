@@ -46,6 +46,3 @@ Thumbs.db
 # Figma Designs
 *.fig
 
-# Environments
-src/environments/environment.ts
-src/environments/environment.development.ts
