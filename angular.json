@@ -84,7 +84,7 @@
           "builder": "@netlify-builder/deploy:deploy",
           "options": {
             "outputPath": "dist/RestCountry",
-            "netlifyToken": "",
+            "netlifyToken": "nfp_roE448kUiWXYK2oHfXj212p9rcbuqhWY5fdd",
             "siteId": ""
           }
         }
