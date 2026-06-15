@@ -36,7 +36,7 @@ export class Countries implements OnInit {
           this.isLoading.set(true);
         }),
         switchMap((params) =>
-          this.countriesService.getCountries(params['region'], params['search'], 8).pipe(
+          this.countriesService.getCountries(params['region'], params['search'], 12).pipe(
             catchError((error) => {
               console.error('API Error:', error);
               return of({ data: { objects: [] } });
@@ -46,7 +46,9 @@ export class Countries implements OnInit {
       )
       .subscribe({
         next: (response: any) => {
-          const countries = response.data.objects || [];
+          const countries = response.data.objects.filter(
+            (country: any) => country.flag?.url_svg || country.flag?.url_png,
+          );
           this.filteredCountries.set(countries.slice(0, 8));
           this.isLoading.set(false);
         },
