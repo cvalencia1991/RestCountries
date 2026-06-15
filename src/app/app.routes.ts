@@ -14,17 +14,13 @@ export const routes: Routes = [
     title: 'Rest Countries',
   },
   {
-    path: '404',
-    component: NotFoundComponent,
-    title: 'Page Not Found',
-  },
-  {
     path: ':name',
     component: CountryDetails,
     title: titleResolver,
   },
   {
     path: '**',
-    redirectTo: '404',
+    component: NotFoundComponent,
+    title: 'Page Not Found',
   },
 ];
