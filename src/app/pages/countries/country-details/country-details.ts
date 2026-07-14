@@ -1,8 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { Observable, of, switchMap, tap } from 'rxjs';
 import { CountryService } from '../country-service';
-import { AsyncPipe, DecimalPipe } from '@angular/common';
+import { AsyncPipe, DecimalPipe, isPlatformBrowser } from '@angular/common';
 import { Button } from '../../../components/button/button';
 import { Loader } from '../../../components/loader/loader';
 
@@ -16,11 +16,15 @@ export class CountryDetails implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   private countryService = inject(CountryService);
   private router = inject(Router);
+  private platformId = inject(PLATFORM_ID);
   country$!: Observable<any>;
 
   ngOnInit(): void {
     this.country$ = this.activatedRoute.paramMap.pipe(
       switchMap((params) => {
+        if (!isPlatformBrowser(this.platformId)) {
+          return of(null);
+        }
         const name = params.get('name');
         if (name) {
           return this.countryService.getCountryByName(name);

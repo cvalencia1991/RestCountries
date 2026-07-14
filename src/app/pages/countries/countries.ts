@@ -1,4 +1,5 @@
-import { Component, inject, signal, DestroyRef, OnInit } from '@angular/core';
+import { Component, inject, signal, DestroyRef, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { SearchBar } from '../../components/search-bar/search-bar';
 import { DropDownOptions } from '../../components/drop-down-options/drop-down-options';
 import { CountryService } from './country-service';
@@ -19,11 +20,11 @@ export class Countries implements OnInit {
   private destroyRef = inject(DestroyRef);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private platformId = inject(PLATFORM_ID);
 
   filteredCountries = signal<any[]>([]);
   isLoading = signal(true);
   errorMessage = signal<string | null>(null);
-
   searchTerm = signal('');
   selectedRegion = signal('');
 
@@ -37,8 +38,11 @@ export class Countries implements OnInit {
           this.isLoading.set(true);
           this.errorMessage.set(null);
         }),
-        switchMap((params) =>
-          this.countriesService.getCountries(params['region'], params['search'], 12).pipe(
+        switchMap((params) => {
+          if (!isPlatformBrowser(this.platformId)) {
+            return of({ data: { objects: [] } });
+          }
+          return this.countriesService.getCountries(params['region'], params['search'], 12).pipe(
             catchError((error) => {
               let msg = 'Could not load countries. Please try again later.';
               if (error.status === 401) {
@@ -50,8 +54,8 @@ export class Countries implements OnInit {
               this.isLoading.set(false);
               return of({ data: { objects: [] } });
             }),
-          ),
-        ),
+          );
+        }),
       )
       .subscribe({
         next: (response: any) => {
