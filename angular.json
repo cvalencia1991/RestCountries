@@ -78,14 +78,6 @@
         "test": {
           "builder": "@ngx-env/builder:unit-test",
           "options": {}
-        },
-        "deploy": {
-          "builder": "@netlify-builder/deploy:deploy",
-          "options": {
-            "outputPath": "dist/RestCountry",
-            "netlifyToken": "nfp_roE448kUiWXYK2oHfXj212p9rcbuqhWY5fdd",
-            "siteId": ""
-          }
         }
       }
     }
