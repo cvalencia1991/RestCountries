@@ -14,7 +14,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@ngx-env/builder:application",
           "options": {
             "outputPath": "dist/RestCountry",
             "browser": "src/main.ts",
@@ -66,7 +66,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@ngx-env/builder:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "RestCountry:build:production"
@@ -75,10 +75,12 @@
               "buildTarget": "RestCountry:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {}
         },
         "test": {
-          "builder": "@angular/build:unit-test"
+          "builder": "@ngx-env/builder:unit-test",
+          "options": {}
         },
         "deploy": {
           "builder": "@netlify-builder/deploy:deploy",

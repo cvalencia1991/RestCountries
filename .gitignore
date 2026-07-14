@@ -46,3 +46,9 @@ Thumbs.db
 # Figma Designs
 *.fig
 
+# Environment files
+.env
+.env.*
+!.env.example
+
+

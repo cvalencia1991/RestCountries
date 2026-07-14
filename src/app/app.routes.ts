@@ -1,11 +1,8 @@
-import { Routes, ResolveFn } from '@angular/router';
+import { Routes } from '@angular/router';
 import { Countries } from './pages/countries/countries';
 import { CountryDetails } from './pages/countries/country-details/country-details';
 import { NotFoundComponent } from './not-found-component/not-found-component';
-
-const titleResolver: ResolveFn<string> = (route) => {
-  return route.paramMap.get('name') || 'Country Details';
-};
+import { titleResolver } from './core/resolvers/title.resolver';
 
 export const routes: Routes = [
   {
